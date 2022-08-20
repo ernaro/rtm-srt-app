@@ -11,9 +11,6 @@ const axios = Axios.create({
 
 export const axiosFetcher = (url) => axios.get(url).then((res) => res.data);
 
-export const getChannelById = (id) => {
-  return axios.get(`/channels/${id}`);
-};
 
 export const createChannel = (channel) => {
   return axios.post("/channels", channel);
@@ -31,6 +28,3 @@ export const startChannelById = (id) => axios.post(`/channels/${id}/start`);
 
 export const stopChannelById = (id) => axios.post(`/channels/${id}/stop`);
 
-export const getServerInfo = () => {
-  return axios.get("/server-info");
-};
