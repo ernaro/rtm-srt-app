@@ -26,7 +26,7 @@ export default function Index() {
     setFilteredChannels(
       channels?.filter(
         (channel) =>
-          channel.serviceName
+          channel.channelName
             .toLowerCase()
             .includes(searchValue.toLowerCase()) &&
           channel.outputUrl.startsWith(filterValue)
