@@ -9,7 +9,7 @@ const NavBar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          ReTransmit
+          SRT ReTransmit
         </Typography>
         <IconButton>
           <AccountCircle />
