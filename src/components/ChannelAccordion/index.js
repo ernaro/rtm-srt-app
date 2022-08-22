@@ -69,7 +69,7 @@ const ChannelAccordion = ({
             variant="outlined"
             color="warning"
             size="small"
-            onClick={ () => openDeleteDialog(id, serviceName) }
+            onClick={ () => openDeleteDialog(id, channelName) }
           >
             Delete
           </Button>
