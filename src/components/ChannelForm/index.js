@@ -17,6 +17,9 @@ const validationSchema = Yup.object({
   inputLatency: Yup.number()
     .min(20, "Minimal latency is 20")
     .max(6000, "Maximum latency is 6000"),
+  inputPassword: Yup.string()
+    .min(10, "Password length must be not less then 10 characters")
+    .max(79, "Password length can't be greater then 79 characters"),
   outputUrl: Yup.string().required("Output Url is required!"),
   outputLatency: Yup.number()
     .min(20, "Minimal latency is 20")
@@ -31,9 +34,11 @@ const ChannelForm = ({ channel, formTitle, submitHandler }) => {
         inputUrl: channel?.inputUrl || "",
         inputMode: channel?.inputMode || "caller",
         inputLatency: channel?.inputLatency || 120,
+        inputPassword: channel?.inputPassword || "",
         outputUrl: channel?.outputUrl || "",
         outputMode: channel?.outputMode || "caller",
         outputLatency: channel?.outputLatency || 120,
+        outputPassword: channel?.outputPassword || "",
         enabled: channel?.enabled || false,
       },
       enableReinitialize: true,
@@ -85,6 +90,7 @@ const ChannelForm = ({ channel, formTitle, submitHandler }) => {
             <MenuItem value="listener">Listener</MenuItem>
           </TextField>
           <TextField
+            sx={{ mr: 1 }}
             name="inputLatency"
             label="Latency:"
             margin="dense"
@@ -94,6 +100,16 @@ const ChannelForm = ({ channel, formTitle, submitHandler }) => {
             onChange={ handleChange }
             error={ Boolean(touched.inputLatency && errors.inputLatency) }
             helperText={ touched.inputLatency && errors.inputLatency }
+          />
+          <TextField
+            name="inputPassword"
+            label="Passphrase:"
+            margin="dense"
+            size="small"
+            value={ values.inputPassword }
+            onChange={ handleChange }
+            error={ Boolean(touched.inputPassword && errors.inputPassword) }
+            helperText={ touched.inputPassword && errors.inputPassword }
           />
         </Box>
         <TextField
@@ -124,6 +140,7 @@ const ChannelForm = ({ channel, formTitle, submitHandler }) => {
             <MenuItem value="listener">Listener</MenuItem>
           </TextField>
           <TextField
+            sx={{ mr: 1 }}
             name="outputLatency"
             label="Latency:"
             margin="dense"
@@ -133,6 +150,16 @@ const ChannelForm = ({ channel, formTitle, submitHandler }) => {
             onChange={ handleChange }
             error={ Boolean(touched.outputLatency && errors.outputLatency) }
             helperText={ touched.outputLatency && errors.outputLatency }
+          />
+          <TextField
+            name="outputPassword"
+            label="Passphrase:"
+            margin="dense"
+            size="small"
+            value={ values.outputPassword }
+            onChange={ handleChange }
+            error={ Boolean(touched.outputPassword && errors.outputPassword) }
+            helperText={ touched.outputPassword && errors.outputPassword }
           />
         </Box>
         <TextField

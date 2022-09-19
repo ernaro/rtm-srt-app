@@ -5,7 +5,7 @@ export default function MainLayout({ children }){
   return(
     <>
       <Head>
-        <title>SRT ReTransmit</title>
+        <title>RTM SRT</title>
       </Head>
       <NavBar />
       <div style={{ display: 'flex', minHeight: '100vh' }}>
