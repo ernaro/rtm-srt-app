@@ -9,22 +9,14 @@ import { createChannel } from "../../service/apiService";
 export default function AddChannel() {
   const router = useRouter();
   const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState("");
 
   const handleChannelSubmit = (channel) => {
     createChannel(channel)
-      .then(() => router.replace("/"))
-      .catch(() => {
-        setSnackMessage(
-          "Channel name already exist or input/output url format invalid!!"
-        );
-        setSnackOpen(true);
-      });
+      .then(() => router.push("/"))
+      .catch(() => setSnackOpen(true));
   };
 
-  const handleSnackClose = () => {
-    setSnackOpen(false);
-  };
+  const handleSnackClose = () => setSnackOpen(false);
 
   return (
     <Container maxWidth="sm" sx={{ mt: 2 }}>
@@ -35,7 +27,7 @@ export default function AddChannel() {
       <ChannelSnackbar
         open={ snackOpen }
         onClose={ handleSnackClose }
-        message={ snackMessage }
+        message="Channel already exist or input/output url format invalid!!"
       />
     </Container>
   );

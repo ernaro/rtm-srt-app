@@ -7,6 +7,7 @@ import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 import ChannelForm from "../../components/ChannelForm";
 import ChannelSnackbar from "../../components/ChannelSnackbar";
+import MessageSnackbar from '../../components/MessageSnackbar';
 import { updateChannelById, axiosFetcher } from "../../service/apiService";
 
 export default function EditChannel() {
@@ -14,17 +15,11 @@ export default function EditChannel() {
   const { id } = router.query;
   const { data: channel, error } = useSWR(`/channels/${id}`, axiosFetcher);
   const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMessage, setSnackMessage] = useState("");
 
   const handleChannelSubmit = (values) => {
     updateChannelById(channel.id, values)
-      .then(() => router.replace("/"))
-      .catch(() => {
-        setSnackMessage(
-          "Channel name already exist or input/output url format invalid!"
-        );
-        setSnackOpen(true);
-      });
+      .then(() => router.push("/"))
+      .catch(() => setSnackOpen(true));
   };
 
   const handleSnackClose = () => {
@@ -42,10 +37,10 @@ export default function EditChannel() {
         mappingType={ channel.mappingType }
         submitHandler={ handleChannelSubmit }
       />
-      <ChannelSnackbar
+      <MessageSnackbar
         open={ snackOpen }
         onClose={ handleSnackClose }
-        message={ snackMessage }
+        message="Channel already exist or input/output url format invalid!"
       />
     </Container>
   );

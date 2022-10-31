@@ -1,30 +1,21 @@
-import Axios from "axios";
+import { api } from './configs/axiosConfig';
 
-const axios = Axios.create({
-  baseURL: "http://localhost:3000/api",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-  responseType: "json",
+
+export const axiosFetcher = url => api.get(url).then(res => res.data).catch(err => {
+  const error = new Error('An error occurred while fetching the data.');
+  error.status = err.response.status;
+  throw error;
 });
 
-export const axiosFetcher = (url) => axios.get(url).then((res) => res.data);
+export const createChannel = channel => api.post("/channels", channel);
 
+export const updateChannelById = (id, channel) => api.put(`/channels/${id}`, channel);
 
-export const createChannel = (channel) => {
-  return axios.post("/channels", channel);
-};
+export const deleteChannelById = id => api.delete(`/channels/${id}`);
 
-export const updateChannelById = (id, channel) => {
-  return axios.put(`/channels/${id}`, channel);
-};
+export const startChannelById = id => api.post(`/channels/${id}/start`);
 
-export const deleteChannelById = (id) => {
-  return axios.delete(`/channels/${id}`);
-};
+export const stopChannelById = id => api.post(`/channels/${id}/stop`);
 
-export const startChannelById = (id) => axios.post(`/channels/${id}/start`);
-
-export const stopChannelById = (id) => axios.post(`/channels/${id}/stop`);
+export const changeUserPassword = (id, passwords) => api.put(`/users/${id}`, passwords);
 

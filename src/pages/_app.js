@@ -7,6 +7,8 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
 import MainLayout from "../layout/MainLayout";
+import { AuthProvider, ProtectRoute } from '../context/AuthContext';
+
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -20,9 +22,13 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={ theme }>
         <CssBaseline />
-        <MainLayout>
-          <Component { ...pageProps } />
-        </MainLayout>
+        <AuthProvider>
+          <ProtectRoute>
+            <MainLayout>
+              <Component { ...pageProps } />
+            </MainLayout>
+          </ProtectRoute>
+        </AuthProvider>
       </ThemeProvider>
     </CacheProvider>
   );

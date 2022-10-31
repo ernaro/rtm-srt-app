@@ -26,25 +26,18 @@ export default function Index() {
     setFilteredChannels(
       channels?.filter(
         (channel) =>
-          channel.channelName
-            .toLowerCase()
-            .includes(searchValue.toLowerCase()) &&
+          channel.channelName.toLowerCase().includes(searchValue.toLowerCase())
+          &&
           channel.outputUrl.startsWith(filterValue)
       )
     );
   }, [searchValue, filterValue, channels]);
 
-  const handleSearchChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  const handleSearchChange = event => setSearchValue(event.target.value);
 
-  const handleFilterChange = (e) => {
-    setFilterValue(e.target.value);
-  };
+  const handleFilterChange = event => setFilterValue(event.target.value);
 
-  const handleSnackClose = () => {
-    setSnackOpen(false);
-  };
+  const handleSnackClose = () => setSnackOpen(false);
 
   const handleDialogOpen = (id, name) => {
     setDialogOpen(true);
@@ -69,15 +62,13 @@ export default function Index() {
     });
   };
 
-  const handleDeleteChannel = () => {
-    deleteChannelById(channelToDelete.id).then(() => handleDialogClose());
-  };
+  const handleDeleteChannel = () => deleteChannelById(channelToDelete.id).then(() => handleDialogClose());
 
   if (error) return <Error message="Failed to load data!" />;
   if (!channels) return <Loader />;
 
   return (
-    <Container maxWidth="md" sx={{ flexGrow: 1, mt: 2 }}>
+    <Container maxWidth="lg" sx={{ flexGrow: 1, mt: 2 }}>
       <ChannelAccordionToolbar
         searchValue={ searchValue }
         filterValue={ filterValue }
@@ -85,7 +76,7 @@ export default function Index() {
         handleFilterChange={ handleFilterChange }
       />
       <Paper sx={{ mb: 4 }}>
-        {filteredChannels?.map((channel) => (
+        { filteredChannels?.map(channel => (
           <ChannelAccordion
             key={ channel.id }
             id={ channel.id }
@@ -97,7 +88,7 @@ export default function Index() {
             stopChannel={ handleChannelStop }
             openDeleteDialog={ handleDialogOpen }
           />
-        ))}
+        )) }
       </Paper>
       <ChannelSnackbar
         open={ snackOpen }
